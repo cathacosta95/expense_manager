@@ -25,9 +25,9 @@ class UsersTableSeeder extends Seeder
 	        	],
 	        	// user
 	        	[
-		        	'firstname' => 'Cath',
-		        	'lastname' => 'Acosta',
-		        	'email' => 'cathacosta95@gmail.com',
+		        	'firstname' => 'User',
+		        	'lastname' => 'Sample',
+		        	'email' => 'user@sample.com',
 		        	'password' => bcrypt('pass1234'),
 		            'role_id' => 2,
 		        ]
