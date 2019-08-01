@@ -14847,7 +14847,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			showError: false,
 			errors: [],
 			user_id: null,
-			buttonSubmit: ''
+			buttonSubmit: '',
+			enableButton: true
 		};
 	},
 
@@ -14871,12 +14872,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		storeUser: function storeUser() {
 			var self = this;
+			self.enableButton = false;
 			axios.post('/users', self.user).then(function (data) {
 				var res = data.data;
 				if (res.result) {
 					self.showModal = false;
+					self.$parent.makeAlert('success', '', 'User successfully created! Credentials has been sent via email.');
 					self.clearForm();
-					self.$parent.makeAlert('success', '', 'User successfully created!');
 					self.$parent.fetchData();
 				} else {
 					self.showError = true;
@@ -14937,6 +14939,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				role_id: ''
 			};
 			this.showError = false;
+			this.enableButton = true;
 			this.errors = [];
 			this.user_id = null;
 		},
@@ -15197,7 +15200,10 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "button",
-                  { staticClass: "btn btn-blue", attrs: { type: "submit" } },
+                  {
+                    staticClass: "btn btn-blue",
+                    attrs: { type: "submit", disabled: !_vm.enableButton }
+                  },
                   [_vm._v(_vm._s(_vm.buttonSubmit))]
                 )
               ])

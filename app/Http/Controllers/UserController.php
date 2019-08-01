@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Mail;
+use App\Mail\AccountCreated;
+
 use Validator;
 
 use App\Role;
@@ -63,12 +66,11 @@ class UserController extends Controller
             $role->users()->save($save);
             $result['data'] = $save;
 
-            // MISSING: send email
-            // $accountData = $save;
-            // $accountData->password= $password;
-            // // send email
-            // $send = Mail::to($save->email)->send(new AccountCreated($accountData));
-            // $save->roles()->attach($data['role_id']);
+            // send email
+            $accountData = $save;
+            $accountData->password= $password;
+            $send = Mail::to($save->email)->send(new AccountCreated($accountData));
+            
             $result['result'] = true;
         }
         return $result;

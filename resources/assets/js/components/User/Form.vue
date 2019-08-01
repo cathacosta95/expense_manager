@@ -45,7 +45,7 @@
 				<div class="modal-footer">
 					<div class="float-right">
 						<button type="button" class="btn btn-grey" @click="showModal = false">Cancel</button>
-						<button type="submit" class="btn btn-blue">{{ buttonSubmit }}</button>
+						<button type="submit" class="btn btn-blue" :disabled="!enableButton">{{ buttonSubmit }}</button>
 					</div>
 				</div>
 			</form>
@@ -71,6 +71,7 @@ export default {
 			errors: [],
 			user_id: null,
 			buttonSubmit: '',
+			enableButton: true
 		}
 	},
 
@@ -92,13 +93,14 @@ export default {
 		},
 		storeUser() {
 			let self = this;
+			self.enableButton = false;
 			axios.post('/users', self.user)
 			.then(data => {
 				let res = data.data;
 				if (res.result) {
 					self.showModal = false;
+					self.$parent.makeAlert('success', '', 'User successfully created! Credentials has been sent via email.')
 					self.clearForm();
-					self.$parent.makeAlert('success', '', 'User successfully created!')
 					self.$parent.fetchData();
 				}
 				else {
@@ -163,6 +165,7 @@ export default {
 				role_id: '',
 			};
 			this.showError = false;
+			this.enableButton = true;
 			this.errors = [];
 			this.user_id = null;
 		},
