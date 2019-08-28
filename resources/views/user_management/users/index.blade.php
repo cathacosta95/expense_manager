@@ -8,7 +8,7 @@
       User Management > Users
     </h5>
   </div>
-  <div id="app-user">
+  <div id="app-user" v-cloak>
     <users></users>
   </div>
 @endsection
